@@ -12,6 +12,11 @@ EXTENSOES = {".java", ".sql", ".html"}
 IGNORAR = {".git", "target", "build", "node_modules", ".idea", ".mvn", "out", "dist"}
 MAX_BYTES = 60_000  # ignora arquivos muito grandes
 
+def remover_licenca(txt: str) -> str:
+    if txt.lstrip().startswith("/*") and "Licensed under" in txt[:2000]:
+        txt = re.sub(r"\A\s*/\*.*?\*/\s*", "", txt, count=1, flags=re.DOTALL)
+    return txt
+
 
 def limpar(txt: str) -> str:
     txt = txt.replace("\r\n", "\n").replace("\r", "\n")
@@ -37,7 +42,7 @@ for repo in sorted(p for p in FONTES.iterdir() if p.is_dir()):
             continue
 
         try:
-            conteudo = limpar(caminho.read_text(encoding="utf-8"))
+                        conteudo = limpar(remover_licenca(caminho.read_text(encoding="utf-8")))
         except UnicodeDecodeError:
             continue
 
