@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# Repositórios clonados (têm licenças e histórico próprios; o script os usa)
+fontes/
+
+# Dataset gerado (4 MB): quem clonar o projeto regenera com o script
+dados/dataset.txt
+
+# Pesos do modelo (podem ficar grandes)
+modelos/*.pt
